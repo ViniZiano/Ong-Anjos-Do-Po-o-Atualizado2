@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/fixes/responsive-fixes.css">
   <link rel="stylesheet" href="css/fixes/botoes-fix.css">
   <link rel="stylesheet" href="css/fixes/admin.css">
-  <link rel="shortcut icon" href="/adt-animal-main/adote-um-animal-main/main/assets/img/dog.png"/>
+  <link rel="shortcut icon" href="assets/img/anjos.png"/>
   <style>
     /* pequenos ajustes locais para form */
     .form-group label { display:block; margin-bottom:6px; font-weight:600; color:#444; }
@@ -118,10 +118,11 @@
             <input id="animal-local" class="form-control" placeholder="São Paulo, SP">
           </label>
 
-          <label>Imagem (URL)
-            <input id="animal-imagem" class="form-control" placeholder="https://...">
-          </label>
-          <div id="image-preview" class="image-preview" aria-hidden="true" style="margin-top:8px;"></div>
+          <label>Imagem
+             <input id="animal-imagem" type="file" accept="image/*" class="form-control">
+           </label>
+        <div id="image-preview" class="image-preview" style="margin-top:8px;"></div>
+
 
           <label>Descrição
             <textarea id="animal-descricao" rows="4" class="form-control"></textarea>
@@ -175,6 +176,15 @@
 
   <script src="js/modules/main.js"></script>
   <script src="js/components/admin.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (sessionStorage.getItem('adm_autenticado') !== '1') {
+      alert('Acesso restrito! Faça login primeiro.');
+      window.location.href = 'login-acesso.html';
+    }
+  });
+</script>
+
 </body>
 </html>
 <!-- ...existing code... -->

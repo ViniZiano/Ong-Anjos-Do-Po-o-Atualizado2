@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/fixes/busca-fix.css">
     <link rel="shortcut icon" href="/adote-um-animal-main/assets/img/dog.png"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="assets/img/anjos.jpg"/> 
     <title>Anjos Do Poço</title>
 
     <style>
@@ -272,5 +273,70 @@
     <script src="js/modules/main.js"></script>
     <script src="js/components/busca.js"></script>
     <script src="js/components/form.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("formContato");
+  if (!form) return;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // impede envio padrão
+
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const assunto = document.getElementById("assunto").value || "Contato geral";
+    const mensagem = document.getElementById("mensagem").value.trim();
+
+    const texto = `Olá! Me chamo ${nome}. 👋
+Gostaria de falar sobre: *${assunto}*.
+
+📧 E-mail: ${email}
+💬 Mensagem: ${mensagem}`;
+
+    const numero = "5581982295333"; // número da ONG (com DDI + DDD)
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+
+    window.open(url, "_blank"); // abre o WhatsApp Web ou app
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // 🎯 Botão "Ser Voluntário"
+  const btnVoluntario = document.querySelector(".cta-btn-secondary");
+  if (btnVoluntario) {
+    btnVoluntario.addEventListener("click", function (e) {
+      e.preventDefault();
+      const numero = "5581982295333"; // número com DDI + DDD
+      const mensagem = "Olá! Gostaria de ser voluntário(a) na ONG Anjos do Poço 💚";
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, "_blank");
+    });
+  }
+
+  // 📩 Formulário de Contato envia mensagem via WhatsApp
+  const form = document.getElementById("formContato");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const nome = document.getElementById("nome").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const assunto = document.getElementById("assunto").value || "Contato geral";
+      const mensagem = document.getElementById("mensagem").value.trim();
+
+      const texto = `Olá! Me chamo ${nome}. 👋
+Gostaria de falar sobre: *${assunto}*.
+
+📧 E-mail: ${email}
+💬 Mensagem: ${mensagem}`;
+
+      const numero = "5581982295333";
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+      window.open(url, "_blank");
+    });
+  }
+});
+</script>
+
 </body>
 </html>

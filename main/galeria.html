@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="shortcut icon" href="/adote-um-animal-main/assets/img/dog.png"/>
   <link rel="shortcut icon" href="/adt-animal-main/adote-um-animal-main/main/assets/img/dog.png"/>
+  <link rel="shortcut icon" href="assets/img/anjos.jpg"/> 
   <title>Anjos Do Poço</title>
 </head>
 
@@ -863,10 +864,75 @@
     if (!btn) return;
     btn.addEventListener('click', function() {
       // redireciona para a página de login (mais amigável que prompt)
-      window.location.href = 'login.html';
+      window.location.href = 'login-acesso.html';
     });
   });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const galeriaContainer = document.getElementById("galeria-grid");
+  if (!galeriaContainer) return;
+
+  // Carregar galeria do localStorage (imagens salvas no admin)
+  const galeriaLocal = JSON.parse(localStorage.getItem("galeria") || "[]");
+
+  galeriaLocal.forEach(animal => {
+    const item = document.createElement("div");
+    item.className = "galeria-item";
+    item.innerHTML = `
+      <div class="galeria-badge-container">
+        <span class="galeria-tag">Disponível</span>
+      </div>
+      <div class="galeria-acoes">
+        <div class="galeria-favorito" title="Adicionar aos favoritos"><i class="far fa-heart"></i></div>
+        <div class="galeria-compartilhar" title="Compartilhar"><i class="fas fa-share-alt"></i></div>
+      </div>
+      <img src="${animal.imagem}" alt="${animal.nome}" class="galeria-imagem">
+      <div class="galeria-overlay">
+        <h3 class="galeria-animal-nome">${animal.nome}</h3>
+        <p class="galeria-animal-info">${animal.idade || ""} • ${animal.genero || ""} • ${animal.local || ""}</p>
+        <div class="galeria-botoes">
+          <a href="#form-adocao" class="galeria-btn">Quero Adotar</a>
+        </div>
+      </div>
+    `;
+    galeriaContainer.appendChild(item);
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector(".adocao-form");
+  if (!form) return;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // impede o envio padrão
+
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const telefone = document.getElementById("telefone").value.trim();
+    const cidade = document.getElementById("cidade").value.trim();
+    const animal = document.getElementById("animal-interesse").value.trim() || "um animal disponível";
+    const mensagem = document.getElementById("mensagem").value.trim();
+
+    // Cria a mensagem automática
+    const texto = `Olá! Me chamo ${nome} e encontrei o site Anjos do Poço. 
+Tenho interesse em adotar ${animal}. 
+📞 Telefone: ${telefone}
+📍 Cidade: ${cidade}
+✉️ E-mail: ${email}
+${mensagem ? "\n💬 Mensagem: " + mensagem : ""}`;
+
+    // Número do WhatsApp (mesmo usado no seu site)
+    const numero = "5581982295333"; // coloque o DDI+DDD+número
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+
+    // Redireciona o usuário
+    window.open(url, "_blank");
+  });
+});
+</script>
+
 </body>
 
 </html>

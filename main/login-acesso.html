@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login • Área Admin</title>
+  <link rel="stylesheet" href="css/base/modern-style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffb347, #ffcc33);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-card {
+      background: #fff;
+      padding: 40px 32px;
+      border-radius: 16px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-card h1 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .login-card .form-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .login-card label {
+      display: block;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    .login-card input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .login-card button {
+      width: 100%;
+      background: #ffb347;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .login-card button:hover {
+      background: #ffa62b;
+      transform: scale(1.03);
+    }
+
+    .error {
+      color: #e74c3c;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .back-home {
+      display: inline-block;
+      margin-top: 20px;
+      color: #555;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .back-home:hover {
+      color: #222;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <h1><i class="fa-solid fa-paw"></i> Área Restrita</h1>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" placeholder="Digite a senha" required>
+      </div>
+      <button type="submit">Entrar</button>
+      <p class="error" id="erro">Senha incorreta. Tente novamente.</p>
+    </form>
+    <a href="index.html" class="back-home"><i class="fa-solid fa-arrow-left"></i> Voltar ao site</a>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const senha = document.getElementById('senha').value.trim();
+
+      if (senha === '1234') {
+        sessionStorage.setItem('adm_autenticado', '1');
+        window.location.href = 'admin.html'; // redireciona ao painel
+      } else {
+        const erro = document.getElementById('erro');
+        erro.style.display = 'block';
+      }
+    });
+  </script>
+
+</body>
+</html>
