@@ -1,0 +1,180 @@
+<!-- ...existing code... -->
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin • Anjos Do Poço</title>
+  <link rel="stylesheet" href="css/base/modern-style.css">
+  <link rel="stylesheet" href="css/pages/modern-style-adocao.css">
+  <link rel="stylesheet" href="css/fixes/responsive-fixes.css">
+  <link rel="stylesheet" href="css/fixes/botoes-fix.css">
+  <link rel="stylesheet" href="css/fixes/admin.css">
+  <link rel="shortcut icon" href="/adt-animal-main/adote-um-animal-main/main/assets/img/dog.png"/>
+  <style>
+    /* pequenos ajustes locais para form */
+    .form-group label { display:block; margin-bottom:6px; font-weight:600; color:#444; }
+    .form-control { width:100%; padding:8px 10px; border-radius:8px; border:1px solid #e8e8e8; }
+    .field-row { display:flex; gap:12px; }
+    .field-row > label { flex:1; }
+    fieldset { border:1px solid #eee; padding:12px; border-radius:8px; }
+  </style>
+</head>
+<body class="pagina-admin">
+  <nav class="navbar">
+    <div class="navbar-container container">
+      <div class="logo"><i class="fa-solid fa-paw logo-icon"></i><a href="index.html">Anjos Do Poço</a></div>
+      <div class="mobile-menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="galeria.html"><i class="fa-solid fa-paw"></i> Adoção</a></li>
+        <li><a href="contato.html"><i class="fa-solid fa-envelope"></i> Contato</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="admin-container container">
+    <header class="admin-header">
+      <h1>Painel Admin</h1>
+      <div class="admin-actions">
+        <input id="search" placeholder="Buscar por nome, tipo, local..." class="form-control" />
+        <select id="sort" class="form-control">
+          <option value="created_desc">Mais recentes</option>
+          <option value="nome_asc">Nome A→Z</option>
+          <option value="nome_desc">Nome Z→A</option>
+        </select>
+        <button id="btn-logout" class="btn btn-outline">Logout</button>
+      </div>
+    </header>
+
+    <section class="admin-grid">
+      <div class="card">
+        <div class="card-header">
+          <h2>Animais</h2>
+          <div class="card-actions">
+            <button id="btn-export" class="btn btn-outline">Exportar JSON</button>
+            <input id="file-import" type="file" accept="application/json" style="display:none">
+            <button id="btn-import" class="btn btn-outline">Importar</button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table id="tbl-animals" class="table">
+            <thead>
+              <tr><th>Preview</th><th>Nome / Gênero</th><th>Tipo</th><th>Idade</th><th>Local</th><th>Ações</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="paginator">
+          <button id="prev-page" class="btn btn-secondary">Anterior</button>
+          <span id="page-info">1 / 1</span>
+          <button id="next-page" class="btn btn-secondary">Próxima</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 id="form-title">Criar Animal</h2>
+        <form id="animal-form" novalidate>
+          <input type="hidden" id="animal-id">
+
+          <label>Nome
+            <input id="animal-nome" required class="form-control">
+          </label>
+
+          <label>Categoria (ex: "cachorro filhote")
+            <input id="animal-categoria" class="form-control" placeholder="cachorro filhote">
+          </label>
+
+          <label>Tipo (Cachorro / Gato / Outro)
+            <input id="animal-tipo" class="form-control" placeholder="Cachorro">
+          </label>
+
+          <div class="field-row" style="margin-top:8px;">
+            <label>Idade <input id="animal-idade" class="form-control" placeholder="ex: 2 meses"></label>
+
+            <label>Gênero
+              <select id="animal-genero" class="form-control">
+                <option value="">-- Selecionar --</option>
+                <option value="macho">Macho</option>
+                <option value="femea">Fêmea</option>
+                <option value="ambos">Ambos</option>
+              </select>
+            </label>
+          </div>
+
+          <label>Tamanho
+            <select id="animal-tamanho" class="form-control">
+              <option value="todos">Todos</option>
+              <option value="mini">Mini</option>
+              <option value="pequeno">Pequeno</option>
+              <option value="medio">Médio</option>
+              <option value="grande">Grande</option>
+            </select>
+          </label>
+
+          <label>Local (Cidade, UF)
+            <input id="animal-local" class="form-control" placeholder="São Paulo, SP">
+          </label>
+
+          <label>Imagem (URL)
+            <input id="animal-imagem" class="form-control" placeholder="https://...">
+          </label>
+          <div id="image-preview" class="image-preview" aria-hidden="true" style="margin-top:8px;"></div>
+
+          <label>Descrição
+            <textarea id="animal-descricao" rows="4" class="form-control"></textarea>
+          </label>
+
+          <label>Características (vírgula-separadas)
+            <input id="animal-carac" class="form-control" placeholder="calmo,brincalhao,castrado">
+          </label>
+
+          <fieldset>
+            <legend>Status / Etiquetas</legend>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <label><input type="checkbox" id="flag-necessidades"> Necessidades Especiais</label>
+              <label><input type="checkbox" id="flag-empar"> Em par</label>
+              <label><input type="checkbox" id="flag-multiplos"> Múltiplos</label>
+              <label><input type="checkbox" id="flag-urgente"> Urgente / Prioridade</label>
+              <label><input type="checkbox" id="flag-vacinado"> Vacinado</label>
+              <label><input type="checkbox" id="flag-castrado"> Castrado</label>
+            </div>
+          </fieldset>
+
+          <div class="form-actions" style="margin-top:12px;">
+            <button type="submit" class="btn btn-primary" id="btn-save">Salvar</button>
+            <button type="button" class="btn btn-secondary" id="btn-new">Novo</button>
+            <button type="button" class="btn btn-outline-danger" id="btn-bulk-delete">Excluir selecionados</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Confirmation modal -->
+  <div id="confirm-modal" class="confirm-modal" aria-hidden="true">
+    <div class="confirm-card">
+      <h3 id="confirm-title">Confirmar</h3>
+      <p id="confirm-message">Tem certeza?</p>
+      <div class="confirm-actions">
+        <button id="confirm-no" class="btn btn-secondary">Cancelar</button>
+        <button id="confirm-yes" class="btn btn-danger">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer (mesmo da galeria) -->
+  <footer class="footer">
+    <!-- ...existing footer content... -->
+    <div style="position: absolute; right: 20px; bottom: 12px; z-index: 100;">
+      <a href="index.html" class="btn btn-secondary">Voltar ao Site</a>
+    </div>
+  </footer>
+
+  <script src="js/modules/main.js"></script>
+  <script src="js/components/admin.js"></script>
+</body>
+</html>
+<!-- ...existing code... -->

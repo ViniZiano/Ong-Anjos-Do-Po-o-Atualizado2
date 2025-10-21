@@ -1,0 +1,83 @@
+/* Styles mínimos e profissionais para o painel admin */
+.admin-container { padding: 28px 20px; }
+.admin-header { display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.admin-actions { display:flex; gap:10px; align-items:center; }
+.admin-grid { display:grid; grid-template-columns: 1fr 430px; gap:20px; align-items:start; }
+.table-wrapper { overflow:auto; max-height:62vh; }
+.table img { width:68px; height:48px; object-fit:cover; border-radius:8px; }
+.td-actions { display:flex; gap:8px; align-items:center; }
+.form-row { display:flex; gap:12px; }
+.form-actions { display:flex; gap:8px; margin-top:12px; align-items:center; }
+.image-preview img { width:100%; max-height:160px; object-fit:cover; border-radius:8px; display:block; }
+.confirm-modal { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.4); opacity:0; visibility:hidden; transition:all .18s ease; z-index:9999; }
+.confirm-modal.visible { opacity:1; visibility:visible; }
+.confirm-card { background:#fff; padding:18px; border-radius:10px; width:90%; max-width:420px; box-shadow:0 12px 40px rgba(0,0,0,0.18); }
+.admin-toast { position:fixed; right:20px; bottom:20px; background:#333; color:#fff; padding:10px 14px; border-radius:8px; opacity:0; transform:translateY(6px); transition:all .28s; z-index:10000; }
+.admin-toast.show { opacity:1; transform:translateY(0); }
+.admin-toast.success { background: #1f8a52; }
+.admin-toast.danger { background: #c23a3a; }
+.admin-toast.info { background: #2261a8; }
+
+.pagina-admin .admin-container {
+  /* ajuste o valor se a sua navbar for maior/menor */
+  padding-top: 100px;
+}
+
+/* melhora o comportamento em telas menores */
+@media (max-width: 992px) {
+  .pagina-admin .admin-container {
+    padding-top: 120px;
+  }
+  .admin-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+/* opcional: garantir que os controles do header fiquem sempre visíveis e alinhados */
+.admin-header { align-items: center; z-index: 1; position: relative; }
+
+/* Tornar os botões de paginação visíveis sobre fundo claro */
+#prev-page,
+#next-page,
+.paginator .btn,
+.paginacao-btn {
+  background: transparent;
+  color: var(--cor-primaria, #FF8C42);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  transition: all .18s ease;
+}
+
+/* Hover / foco */
+#prev-page:hover,
+#next-page:hover,
+.paginator .btn:hover,
+.paginacao-btn:hover {
+  background: rgba(var(--cor-primaria-rgb, 255,140,66), 0.08);
+  transform: translateY(-2px);
+  border-color: rgba(var(--cor-primaria-rgb, 255,140,66), 0.15);
+}
+
+/* Estado desabilitado */
+#prev-page:disabled,
+#next-page:disabled,
+.paginacao-btn:disabled,
+.paginator .btn:disabled {
+  background: transparent;
+  color: rgba(0,0,0,0.35);
+  border-color: rgba(0,0,0,0.05);
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Ajuste para ícones dentro dos botões, se houver */
+#prev-page i,
+#next-page i,
+.paginacao-btn i {
+  color: inherit;
+}

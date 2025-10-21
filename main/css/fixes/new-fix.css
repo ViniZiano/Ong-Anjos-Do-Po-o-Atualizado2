@@ -1,0 +1,75 @@
+.galeria-item { position: relative; overflow: hidden; }
+.galeria-overlay {
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px !important;
+  z-index: 6 !important;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.15) 75%, rgba(0,0,0,0) 100%) !important;
+  color: #fff !important;
+  transition: all .2s ease !important;
+}
+
+/* Títulos e infos dos cards: garantir cor branca com sombra */
+.galeria-overlay .galeria-animal-nome,
+.galeria-overlay .galeria-animal-info,
+.galeria-overlay .galeria-animal-tipo {
+  color: #ffffff !important;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6) !important;
+}
+
+/* Se quiser texto escuro em zona branca (ex.: badges claros), força cor escura */
+.galeria-badge-container .galeria-tag,
+.galeria-badge-container .galeria-urgencia,
+.galeria-badges .galeria-badge {
+  color: #222 !important;
+}
+
+/* Certifica que os botões da overlay fiquem visíveis */
+.galeria-overlay .galeria-botoes .galeria-btn,
+.galeria-overlay .galeria-botoes a,
+.galeria-overlay .galeria-botoes button {
+  background: rgba(255,255,255,0.10) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+}
+
+/* FORÇA cores dos textos dos filtros (caso estejam brancos) */
+.filtros-aplicados,
+.filtro-titulo,
+.filtro-opcoes label,
+.filtro-checkbox span,
+.filtro-tag span,
+.filtro-opcoes-tags .filtro-tag span,
+.sugestao-tag,
+.galeria-busca-input,
+.galeria-busca-icon,
+.busca-tag-sugestao {
+  color: #222 !important;
+}
+
+/* Controle de fundo dos itens de filtro (garante contraste) */
+.filtro-tag,
+.filtro-checkbox {
+  background-color: #f6f6f6 !important;
+  color: #222 !important;
+  border-radius: 8px;
+}
+
+/* Botões e links do painel de filtros */
+.filtro-btn-aplicar, .filtro-btn-limpar, .filtros-toggle-btn {
+  color: #222 !important;
+  background: #fff !important;
+  border: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+/* Em telas pequenas manter legibilidade */
+@media (max-width: 600px) {
+  .galeria-overlay { padding: 12px !important; }
+  .galeria-overlay .galeria-animal-nome { font-size: 1.05rem !important; }
+  .filtro-titulo, .filtro-opcoes label { color: #222 !important; }
+}
+
+/* Segurança: remove overrides inline conflitantes e força o gradiente */
+.galeria-overlay[style] { background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.25)) !important; }
