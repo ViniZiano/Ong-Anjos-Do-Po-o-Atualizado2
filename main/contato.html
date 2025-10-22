@@ -248,7 +248,6 @@
                         <li><a href="sobre.html">Sobre Nós</a></li>
                         <li><a href="galeria.html">Adoção</a></li>
                         <li><a href="contato.html">Contato</a></li>
-                        <li><a href="#">Doe Agora</a></li>
                     </ul>
                 </div>
                 <div class="footer-coluna">
@@ -274,67 +273,50 @@
     <script src="js/components/busca.js"></script>
     <script src="js/components/form.js"></script>
     <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("formContato");
-  if (!form) return;
+  const numeroWhatsApp = "5581982295333"; // ✅ número da ONG (DDI + DDD + número)
+  const feedback = document.getElementById("form-sucesso");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); // impede envio padrão
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
+    // Coleta os valores do formulário
     const nome = document.getElementById("nome").value.trim();
     const email = document.getElementById("email").value.trim();
-    const assunto = document.getElementById("assunto").value || "Contato geral";
+    const assunto = document.getElementById("assunto").value.trim() || "Contato geral";
     const mensagem = document.getElementById("mensagem").value.trim();
 
-    const texto = `Olá! Me chamo ${nome}. 👋
-Gostaria de falar sobre: *${assunto}*.
+    // Verificação simples
+    if (!nome || !email || !mensagem) {
+      alert("Por favor, preencha todos os campos obrigatórios antes de enviar.");
+      return;
+    }
 
-📧 E-mail: ${email}
-💬 Mensagem: ${mensagem}`;
+    // Monta o texto para o WhatsApp
+    const texto = `
+👋 Olá! Me chamo *${nome}* e gostaria de falar sobre *${assunto}* 🐾
 
-    const numero = "5581982295333"; // número da ONG (com DDI + DDD)
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+📧 *E-mail:* ${email}
 
-    window.open(url, "_blank"); // abre o WhatsApp Web ou app
+💬 *Mensagem:*  
+${mensagem}
+
+━━━━━━━━━━━━━━━━━━━━━
+💚 *Mensagem enviada pelo site Anjos do Poço*
+    `;
+
+    // Mostra mensagem de feedback na tela
+    feedback.classList.remove("hide");
+
+    // Redireciona para o WhatsApp depois de 1s
+    setTimeout(() => {
+      const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`;
+      window.open(url, "_blank");
+      feedback.classList.add("hide");
+      form.reset();
+    }, 1000);
   });
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  // 🎯 Botão "Ser Voluntário"
-  const btnVoluntario = document.querySelector(".cta-btn-secondary");
-  if (btnVoluntario) {
-    btnVoluntario.addEventListener("click", function (e) {
-      e.preventDefault();
-      const numero = "5581982295333"; // número com DDI + DDD
-      const mensagem = "Olá! Gostaria de ser voluntário(a) na ONG Anjos do Poço 💚";
-      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-      window.open(url, "_blank");
-    });
-  }
-
-  // 📩 Formulário de Contato envia mensagem via WhatsApp
-  const form = document.getElementById("formContato");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const nome = document.getElementById("nome").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const assunto = document.getElementById("assunto").value || "Contato geral";
-      const mensagem = document.getElementById("mensagem").value.trim();
-
-      const texto = `Olá! Me chamo ${nome}. 👋
-Gostaria de falar sobre: *${assunto}*.
-
-📧 E-mail: ${email}
-💬 Mensagem: ${mensagem}`;
-
-      const numero = "5581982295333";
-      const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
-      window.open(url, "_blank");
-    });
-  }
 });
 </script>
 
